@@ -90,7 +90,7 @@
             }
         });
 
-        async function sendMessage() {
+       async function sendMessage() {
     const input = document.getElementById('userInput');
     const message = input.value.trim();
     
@@ -115,9 +115,9 @@
         const data = await response.json();
         console.log('Response from N8N:', data); // Log the response to the console
 
-        // Access the response text
-        if (Array.isArray(data) && data.length > 0 && data[0].response && data[0].response.text) {
-            addMessageToChat(data[0].response.text, 'bot'); // Display the text from the response
+        // Access the response text directly from the object
+        if (data && data.response && data.response.text) {
+            addMessageToChat(data.response.text, 'bot'); // Display the text from the response
         } else {
             addMessageToChat('No valid response received.', 'bot'); // Fallback message for invalid structure
         }
@@ -129,7 +129,6 @@
     // Hide loading indicator
     document.getElementById('loading').style.display = 'none';
 }
-
 
         function addMessageToChat(message, sender) {
             const chatBox = document.getElementById('chatBox');
