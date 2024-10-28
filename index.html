@@ -113,12 +113,13 @@
         });
 
         const data = await response.json();
+        console.log('Response from N8N:', data); // Log the response to the console
 
-        // Access the nested response text
-        if (data[0].response && data[0].response.text) {
+        // Access the response text
+        if (Array.isArray(data) && data.length > 0 && data[0].response && data[0].response.text) {
             addMessageToChat(data[0].response.text, 'bot'); // Display the text from the response
         } else {
-            addMessageToChat('No response received.', 'bot'); // Fallback message
+            addMessageToChat('No valid response received.', 'bot'); // Fallback message for invalid structure
         }
     } catch (error) {
         console.error('Error:', error);
